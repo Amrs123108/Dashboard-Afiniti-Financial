@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   AFFINITY FINANCIAL — Design Tokens
+   Paleta extraída del logo oficial (fondo azul royal #1A3B8A,
+   isotipo: cuadrado blanco con slash diagonal azul marino).
+   ============================================================ */
+:root {
+  --affinity-primary:       #1A3B8A;   /* azul royal del fondo del logo */
+  --affinity-primary-dark:  #102560;   /* hover / profundidad */
+  --affinity-primary-light: #2451B0;   /* hover secundario, links */
+  --affinity-accent:        #E8F0FF;   /* tint muy suave para fondos de card */
+  --affinity-text:          #0D1B3E;   /* casi-negro azulado para tipografía */
+  --affinity-bg:            #F4F7FE;   /* fondo general */
+  --affinity-surface:       #FFFFFF;
+  --affinity-border:        #C7D4EF;
+
+  /* Semáforo de mora */
+  --semaforo-verde:    #16A34A;
+  --semaforo-amarillo: #CA8A04;
+  --semaforo-naranja:  #EA580C;
+  --semaforo-rojo:     #DC2626;
+
+  /* Tipografía */
+  --font-display: "Inter", system-ui, sans-serif;
+}
+
+/* ============================================================
+   Animación "arranque de auto"
+   Panel entra desde abajo + fade-in escalonado por tarjeta
+   ============================================================ */
+@keyframes arrancada-panel {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes giro-velocimetro {
+  from { stroke-dashoffset: 283; }
+  to   { stroke-dashoffset: var(--dash-target); }
+}
+
+@keyframes contador-odometro {
+  from { opacity: 0; transform: scale(0.82); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes barra-carretera {
+  from { width: 0; }
+  to   { width: var(--bar-target-width); }
+}
+
+@keyframes pulso-semaforo {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+  50%       { box-shadow: 0 0 0 6px transparent; }
+}
+
+.animar-panel   { animation: arrancada-panel 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.animar-odometro{ animation: contador-odometro 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* Delay escalonado para tarjetas hijas */
+.animar-panel:nth-child(1) { animation-delay: 0.05s; }
+.animar-panel:nth-child(2) { animation-delay: 0.12s; }
+.animar-panel:nth-child(3) { animation-delay: 0.19s; }
+.animar-panel:nth-child(4) { animation-delay: 0.26s; }
+.animar-panel:nth-child(5) { animation-delay: 0.33s; }
+.animar-panel:nth-child(6) { animation-delay: 0.40s; }
+.animar-panel:nth-child(7) { animation-delay: 0.47s; }
+.animar-panel:nth-child(8) { animation-delay: 0.54s; }
+
+/* ============================================================
+   Utilidades de layout
+   ============================================================ */
+body {
+  background-color: var(--affinity-bg);
+  color: var(--affinity-text);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.surface {
+  background: var(--affinity-surface);
+  border: 1px solid var(--affinity-border);
+  border-radius: 1rem;
+}
+
+/* Barra animada tipo carretera */
+.barra-carretera {
+  height: 10px;
+  border-radius: 99px;
+  animation: barra-carretera 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.3s;
+  width: 0;
+}
+
+/* Upload dropzone */
+.dropzone-activa {
+  border-color: var(--affinity-primary);
+  background: var(--affinity-accent);
+}
